@@ -5,6 +5,7 @@
 #include <sstream>
 #include <fstream>
 #include "database.hpp"
+#include <mutex>
 using namespace std;
 using namespace lru_cache;
 const int MAX_SIZE = 5; // For testing
@@ -31,14 +32,15 @@ void lru_cache::database::insert(const string& key, const string& value){
                 data[key] = temp;
         }
     }
-        void lru_cache::database::GET(std::string key) const {
+        void lru_cache::database::GET(string key) const {
+            lock_guard<mutex> lock(mtx);
         auto it = data.find(key);
         if (it != data.end()) {
 
             moveToHead(it->second); 
-            std::cout << it->second->value << std::endl;
+            cout << it->second->value << endl;
         } else {
-            std::cout << "Key not found" << std::endl;
+            cout << "Key not found" << endl;
         }
 }
         void lru_cache::database::DEL(string key){

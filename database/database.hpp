@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include <sstream>
 #include <fstream>
+#include <mutex>
 
 namespace lru_cache {
 class Node{
@@ -20,7 +21,7 @@ class Node{
 class database{
 
         private:
-
+        mutable std::mutex mtx;
         mutable Node* head = nullptr;
         mutable Node* tail = nullptr;
         std::unordered_map<std::string, Node*> data;
