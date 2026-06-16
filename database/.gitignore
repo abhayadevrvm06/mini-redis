@@ -1,0 +1,7 @@
+# Ignore executables and build artifacts
+a.out
+*.dSYM
+*.DS_Store
+
+# Ignore binary files
+*.o
